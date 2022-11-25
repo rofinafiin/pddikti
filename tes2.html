@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="style.css" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" 
+              content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- Here a loader is created which 
+             loads till response comes -->
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" 
+                 role="status" id="loading">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <h1>Registered Employees</h1>
+<table id="employees">
+    <tr>
+        <td>A1</td>
+        <td>A2</td>
+        <td>A3</td>
+    </tr>
+    <tr>
+        <td>B1</td>
+        <td>B2</td>
+        <td>B3</td>
+    </tr>
+</table>        <table id="employees"></table>
+    </body>
+</html>
+<script>
+    // api url
+const api_url = 
+      "https://dsbm.ulbi.ac.id/v1/caridosen/datadosen";
+        
+// Defining async function
+async function getapi(url) {
+    
+    // Storing response
+  const response = await fetch(api_url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+  "nidn": "Rolly logistik bisnis"
+})
+  });
+    // Storing data in form of JSON
+    var data = await response.json();
+    console.log(data);
+    if (response) {
+        hideloader();
+    }
+    show(data['data']);
+}
+// Calling that async function
+getapi(api_url);
+  
+// Function to hide the loader
+function hideloader() {
+    document.getElementById('loading').style.display = 'none';
+}
+// Function to define innerHTML for HTML table
+function show(data) {
+    let tab = 
+        `<tr>
+          <th>Name</th>
+          <th>Office</th>
+          <th>Position</th>
+          <th>Salary</th>
+         </tr>`;
+    
+    // Loop to access all rows 
+    // for (let r of data.list) {
+        tab += `<tr> 
+    <td>${data.Nama} </td>
+    <td>${data.NIDN}</td>
+    <td>${data.PT}</td> 
+    <td>${data.Prodi}</td>          
+</tr>`;
+    // }
+    // Setting innerHTML as tab variable
+    document.getElementById("employees").innerHTML = tab;
+}
+</script>
