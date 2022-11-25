@@ -1,6 +1,6 @@
 
 
-<script>
+
     // api url
 const api_url = 
       "https://dsbm.ulbi.ac.id/v1/caridosen/datadosen";
@@ -56,4 +56,3 @@ function show(data) {
     // Setting innerHTML as tab variable
     document.getElementById("employees").innerHTML = tab;
 }
-</script>
